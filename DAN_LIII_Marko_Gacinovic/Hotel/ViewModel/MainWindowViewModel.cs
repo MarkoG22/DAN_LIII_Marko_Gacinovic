@@ -1,4 +1,5 @@
 ﻿using Hotel.Commands;
+using Hotel.Models;
 using Hotel.View;
 using System;
 using System.Collections.Generic;
@@ -65,10 +66,20 @@ namespace Hotel.ViewModel
 
         private void SaveExecute()
         {
-            if (IsMaster(username, UserPassword))
+            if (IsMaster(username, userPassword))
             {
                 MasterView master = new MasterView();
                 master.ShowDialog();
+            }
+            else if (IsEmployee(username, userPassword))
+            {
+                EmployeeView employee = new EmployeeView();
+                employee.ShowDialog();
+            }
+            else if (IsManager(username, UserPassword))
+            {
+                ManagerView manager = new ManagerView();
+                manager.ShowDialog();
             }
             else
             {
@@ -132,11 +143,7 @@ namespace Hotel.ViewModel
                 if (i==1)
                 {
                     pass = list[1];
-                }
-                //if (username == list[1] || password == list[1])
-                //{
-                //    return true;
-                //}
+                }                
             }
 
             if (user == username && pass == password)
@@ -144,6 +151,42 @@ namespace Hotel.ViewModel
                 return true;
             }
             return false;
+        }
+
+        private bool IsEmployee(string username, string password)
+        {
+            try
+            {
+                using (Zadatak_49Entities context = new Zadatak_49Entities())
+                {
+                    tblAll user = (from x in context.tblAlls where x.Username == username && x.Pasword == password select x).First();
+                    tblEmploye employee = (from y in context.tblEmployes where y.AllIDemp == user.All_ID select y).First();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return false;
+            }
+        }
+
+        private bool IsManager(string username, string password)
+        {
+            try
+            {
+                using (Zadatak_49Entities context = new Zadatak_49Entities())
+                {
+                    tblAll user = (from x in context.tblAlls where x.Username == username && x.Pasword == password select x).First();
+                    tblManager manager = (from y in context.tblManagers where y.AllIDman == user.All_ID select y).First();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return false;
+            }
         }
     }
 }

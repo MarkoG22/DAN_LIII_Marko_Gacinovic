@@ -70,7 +70,7 @@ namespace Hotel.ViewModel
         {
             if (String.IsNullOrEmpty(user.FirstName) || String.IsNullOrEmpty(user.Surname)
                 || String.IsNullOrEmpty(user.Email)  || String.IsNullOrEmpty(user.Username) || String.IsNullOrEmpty(user.Pasword)
-                || String.IsNullOrEmpty(employee.Gender) || String.IsNullOrEmpty(employee.Citizenship) || String.IsNullOrEmpty(employee.Engagment)
+                || String.IsNullOrEmpty(employee.Gender) || String.IsNullOrEmpty(employee.Citizenship) 
                 || !user.FirstName.All(Char.IsLetter) || !user.Surname.All(Char.IsLetter))
             {
                 return false;
@@ -140,7 +140,7 @@ namespace Hotel.ViewModel
                     }
 
                     newEmployee.Citizenship = employee.Citizenship;
-                    newEmployee.Engagment = employee.Engagment;
+                    newEmployee.Engagment = engagment.engName;
                     newEmployee.EmployeID = employee.EmployeID;
                     newEmployee.AllIDemp = user.All_ID;
 
@@ -154,6 +154,40 @@ namespace Hotel.ViewModel
             {
                 MessageBox.Show("Wrong inputs, please check your inputs or try again.");
             }
+        }
+
+        // command for closing the window
+        private ICommand close;
+        public ICommand Close
+        {
+            get
+            {
+                if (close == null)
+                {
+                    close = new RelayCommand(param => CloseExecute(), param => CanCloseExecute());
+                }
+                return close;
+            }
+        }
+
+        /// <summary>
+        /// method for closing the window
+        /// </summary>
+        private void CloseExecute()
+        {
+            try
+            {
+                employeeView.Close();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+            }
+        }
+
+        private bool CanCloseExecute()
+        {
+            return true;
         }
 
         private List<tblEngagment> GetAllEngagment()
