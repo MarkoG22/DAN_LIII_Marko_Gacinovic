@@ -1,5 +1,4 @@
-﻿using Hotel.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,14 +15,13 @@ using System.Windows.Shapes;
 namespace Hotel.View
 {
     /// <summary>
-    /// Interaction logic for MasterView.xaml
+    /// Interaction logic for CreateEmployeeView.xaml
     /// </summary>
-    public partial class MasterView : Window
+    public partial class CreateEmployeeView : Window
     {
-        public MasterView()
+        public CreateEmployeeView()
         {
             InitializeComponent();
-            this.DataContext = new MasterViewModel(this);
         }
     }
 }
