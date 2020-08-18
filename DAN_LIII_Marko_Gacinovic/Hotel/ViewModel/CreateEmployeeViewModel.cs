@@ -4,9 +4,7 @@ using Hotel.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -16,6 +14,7 @@ namespace Hotel.ViewModel
     {
         CreateEmployeeView employeeView;
 
+        #region Properties
         private tblAll user;
         public tblAll User
         {
@@ -57,8 +56,9 @@ namespace Hotel.ViewModel
             get { return managerList; }
             set { managerList = value; OnPropertyChanged("ManagerList"); }
         }
+        #endregion
 
-
+        // constructor
         public CreateEmployeeViewModel(CreateEmployeeView employeeOpen)
         {
             employeeView = employeeOpen;
@@ -68,7 +68,7 @@ namespace Hotel.ViewModel
             employee = new tblEmploye();
         }
 
-        // commands
+        #region Commands
         private ICommand save;
         public ICommand Save
         {
@@ -82,6 +82,10 @@ namespace Hotel.ViewModel
             }
         }
 
+        /// <summary>
+        /// method for disabling Save button
+        /// </summary>
+        /// <returns></returns>
         private bool CanSaveExecute()
         {
             if (String.IsNullOrEmpty(user.FirstName) || String.IsNullOrEmpty(user.Surname)
@@ -97,6 +101,9 @@ namespace Hotel.ViewModel
             }
         }
 
+        /// <summary>
+        /// method for creating new employee
+        /// </summary>
         private void SaveExecute()
         {
             try
@@ -160,9 +167,12 @@ namespace Hotel.ViewModel
                     newEmployee.EmployeID = employee.EmployeID;
                     newEmployee.AllIDemp = user.All_ID;
 
+                    // saving data to the database
                     context.tblAlls.Add(newUser);
                     context.tblEmployes.Add(newEmployee);
-                    context.SaveChanges();                    
+                    context.SaveChanges();
+
+                    MessageBox.Show("The employee created successfully.");
                 }
                 employeeView.Close();
             }
@@ -205,7 +215,13 @@ namespace Hotel.ViewModel
         {
             return true;
         }
+        #endregion
 
+        #region Methods
+        /// <summary>
+        /// method for getting all engagments to the list
+        /// </summary>
+        /// <returns></returns>
         private List<tblEngagment> GetAllEngagment()
         {
             try
@@ -224,6 +240,10 @@ namespace Hotel.ViewModel
             }
         }
 
+        /// <summary>
+        /// method for getting all managers to the list
+        /// </summary>
+        /// <returns></returns>
         private List<tblManager> GetAllManager()
         {
             try
@@ -262,6 +282,7 @@ namespace Hotel.ViewModel
                 return false;
             }
         }
+        #endregion
 
     }
 }

@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -15,7 +13,8 @@ namespace Hotel.ViewModel
     class MainWindowViewModel : ViewModelBase
     {
         MainWindow main;
-        
+
+        #region Properties
         // properties for username and password
         private string username;
         public string Username
@@ -45,7 +44,7 @@ namespace Hotel.ViewModel
             get { return manager; }
             set { manager = value; }
         }
-
+        #endregion
 
         // constructor
         public MainWindowViewModel(MainWindow mainOpen)
@@ -53,6 +52,7 @@ namespace Hotel.ViewModel
             main = mainOpen;
         }
 
+        #region Commands
         // command for the login button
         private ICommand logIn;
         public ICommand LogIn
@@ -72,6 +72,9 @@ namespace Hotel.ViewModel
             return true;
         }
 
+        /// <summary>
+        /// method for opening proper windows
+        /// </summary>
         private void SaveExecute()
         {
             if (IsMaster(username, userPassword))
@@ -143,7 +146,16 @@ namespace Hotel.ViewModel
         {
             return true;
         }
+        #endregion
 
+        #region Methods
+
+        /// <summary>
+        /// method for checking Master inputs for opening proper window
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         private bool IsMaster(string username, string password)
         {
             string[] lines = File.ReadAllLines(@"../../OwnerAccess.txt");
@@ -176,6 +188,12 @@ namespace Hotel.ViewModel
             return false;
         }
 
+        /// <summary>
+        /// method for checking Employee inputs
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         private bool IsEmployee(string username, string password)
         {
             try
@@ -194,6 +212,12 @@ namespace Hotel.ViewModel
             }
         }
 
+        /// <summary>
+        /// method for checking Manager inputs
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         private bool IsManager(string username, string password)
         {
             try
@@ -211,5 +235,6 @@ namespace Hotel.ViewModel
                 return false;
             }
         }
+        #endregion
     }
 }

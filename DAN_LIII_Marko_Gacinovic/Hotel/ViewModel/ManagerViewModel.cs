@@ -4,8 +4,6 @@ using Hotel.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -15,6 +13,7 @@ namespace Hotel.ViewModel
     {
         ManagerView managerView;
 
+        #region Properties
         private tblAll user;
         public tblAll User
         {
@@ -41,9 +40,10 @@ namespace Hotel.ViewModel
         {
             get { return employeeList; }
             set { employeeList = value; OnPropertyChanged("EmployeeList"); }
-        }      
+        }
+        #endregion
 
-        
+        // constructor
         public ManagerViewModel(ManagerView managerViewOpen, tblManager ManagerToPass)
         {
             manager = ManagerToPass;
@@ -51,7 +51,7 @@ namespace Hotel.ViewModel
             EmployeeList = GetAllEmployee();
         }
 
-        // commands
+        #region Commands
         private ICommand calculateSalary;
         public ICommand CalculateSalary
         {
@@ -70,17 +70,21 @@ namespace Hotel.ViewModel
             return true;
         }
 
+        /// <summary>
+        /// method for calculating the salary
+        /// </summary>
         private void CalculateSalaryExecute()
         {
             try
-            {       
+            {
                 using (Zadatak_49Entities context = new Zadatak_49Entities())
                 {
-                    tblEmploye employee = (from y in context.tblEmployes where y.EmployeFlor == manager.ManagerFlor select y).First();
+                    tblEmploye employee = (from y in context.tblEmployes where y.EmployeFlor == manager.ManagerFlor select y).FirstOrDefault();
 
                     string degree = manager.SSS;
                     double num = 0;
 
+                    // switch loop for degrees
                     switch (degree)
                     {
                         case "I": num = 1; break;
@@ -110,21 +114,30 @@ namespace Hotel.ViewModel
                     Random rnd = new Random();
                     int x = rnd.Next(2, 1000);
 
+                    // calculating the salary
                     double salary = 1000 * i * s * p + x;
 
                     employee.Salary = (int)salary;
 
                     context.SaveChanges();
 
+                    // refreshing the list
                     EmployeeList = GetAllEmployee();
-                }
+
+                    MessageBox.Show("The salary calculated successfully.");
+                }  
             }
             catch (Exception)
             {
                 MessageBox.Show("Sorry, the salary can not be calculated.");
             }
         }
+        #endregion
 
+        /// <summary>
+        /// method for getting all employees to the list
+        /// </summary>
+        /// <returns></returns>
         private List<tblEmploye> GetAllEmployee()
         {
             try

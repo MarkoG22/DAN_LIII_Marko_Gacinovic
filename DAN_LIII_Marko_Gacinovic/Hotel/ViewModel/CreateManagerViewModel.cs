@@ -4,9 +4,7 @@ using Hotel.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -16,6 +14,7 @@ namespace Hotel.ViewModel
     {
         CreateManagerView createManager;
 
+        #region Properties
         private tblAll user;
         public tblAll User
         {
@@ -43,7 +42,9 @@ namespace Hotel.ViewModel
             get { return degreeList; }
             set { degreeList = value; OnPropertyChanged("DegreeList"); }
         }
+        #endregion
 
+        // constructor
         public CreateManagerViewModel(CreateManagerView createManagerOpen)
         {
             createManager = createManagerOpen;
@@ -52,7 +53,7 @@ namespace Hotel.ViewModel
             manager = new tblManager();
         }
 
-        // commands
+        #region Commands
         private ICommand save;
         public ICommand Save
         {
@@ -66,6 +67,10 @@ namespace Hotel.ViewModel
             }
         }
 
+        /// <summary>
+        /// method for disabling Save button
+        /// </summary>
+        /// <returns></returns>
         private bool CanSaveExecute()
         {
             if (String.IsNullOrEmpty(user.FirstName) || String.IsNullOrEmpty(user.Surname)
@@ -80,6 +85,9 @@ namespace Hotel.ViewModel
             }
         }
 
+        /// <summary>
+        /// method for creating new manager
+        /// </summary>
         private void SaveExecute()
         {
             try
@@ -133,6 +141,8 @@ namespace Hotel.ViewModel
                     context.tblAlls.Add(newUser);
                     context.tblManagers.Add(newManager);
                     context.SaveChanges();
+
+                    MessageBox.Show("The manager created successfully.");
                 }
                 createManager.Close();
             }
@@ -175,7 +185,12 @@ namespace Hotel.ViewModel
         {
             return true;
         }
+        #endregion
 
+        /// <summary>
+        /// method for getting all degrees to the list
+        /// </summary>
+        /// <returns></returns>
         private List<tblDegree> GetAllDegree()
         {
             try

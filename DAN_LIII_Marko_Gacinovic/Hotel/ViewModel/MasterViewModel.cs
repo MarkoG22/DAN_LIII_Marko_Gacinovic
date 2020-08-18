@@ -1,10 +1,5 @@
 ﻿using Hotel.Commands;
 using Hotel.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Hotel.ViewModel
@@ -13,11 +8,13 @@ namespace Hotel.ViewModel
     {
         MasterView masterView;
 
+        // constructor
         public MasterViewModel(MasterView masterOpen)
         {
             masterView = masterOpen;
         }
 
+        // commands
         private ICommand createEmployee;
         public ICommand CreateEmployee
         {
