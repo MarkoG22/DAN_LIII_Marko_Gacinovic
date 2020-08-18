@@ -39,7 +39,7 @@ SSS nvarchar (3)
 ​
 create table tblDegree(
 degreIS int identity (1,1) primary key,
-name nvarchar (5)
+DegreeName nvarchar (5)
 )
 ​
 create table tblEmploye(

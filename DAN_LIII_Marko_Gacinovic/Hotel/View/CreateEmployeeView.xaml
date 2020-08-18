@@ -55,9 +55,9 @@
         <Label Grid.Column="1" Grid.Row="15" Name="lblGender" Content="Gender (M/Z/X/N): " Padding="0" HorizontalAlignment="Right"/>        
         <Label Grid.Column="1" Grid.Row="17" Name="lblCitizenship" Content="Citizenship: " Padding="0" HorizontalAlignment="Right"/>
         <Label Grid.Column="1" Grid.Row="19" Name="lblEngagment" Content="Engagment: " Padding="0" HorizontalAlignment="Right"/>
-        <TextBox Grid.Column="3" Grid.Row="1" Name="txtFirstName" Height="20" Width="150"
+        <TextBox Grid.Column="3" Grid.Row="1" Name="txtFirstName" Height="20" Width="150" PreviewTextInput="LettersValidationTextBox"
                  Text="{Binding User.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Column="3" Grid.Row="3" Name="txtSurname" Height="20" Width="150"
+        <TextBox Grid.Column="3" Grid.Row="3" Name="txtSurname" Height="20" Width="150" PreviewTextInput="LettersValidationTextBox"
                  Text="{Binding User.Surname, UpdateSourceTrigger=PropertyChanged}"/>
         <DatePicker Grid.Column="3" Grid.Row="5" Name="DatePicker1" Height="20" Width="150" DisplayDate="1/1/20" DisplayDateEnd="11/8/20"
                  SelectedDate="{Binding User.DateOfBirth, UpdateSourceTrigger=PropertyChanged}"/>
@@ -67,11 +67,12 @@
                  Text="{Binding User.Username, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
         <TextBox Grid.Column="3" Grid.Row="11" Name="txtPasword" Height="20" Width="150" 
                  Text="{Binding User.Pasword, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
-        <TextBox Grid.Column="3" Grid.Row="13" Name="txtEmployeFlor" Height="20" Width="150" PreviewTextInput="NumbersTextBox"
-                 Text="{Binding Employee.EmployeFlor, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
+        <ComboBox Grid.Column="3" Grid.Row="13" Name="cbEmployeFlor" Height="20" Width="150" DisplayMemberPath="ManagerFlor"
+                 ItemsSource="{Binding ManagerList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Manager, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Column="3" Grid.Row="15" Name="txtGender" Height="20" Width="150" 
-                 Text="{Binding Employee.Gender, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>  
-        <TextBox Grid.Column="3" Grid.Row="17" Name="txtCitizenship" Height="20" Width="150" 
+                 Text="{Binding Employee.Gender, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
+        <TextBox Grid.Column="3" Grid.Row="17" Name="txtCitizenship" Height="20" Width="150" PreviewTextInput="LettersValidationTextBox"
                  Text="{Binding Employee.Citizenship, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
         <ComboBox Grid.Column="3" Grid.Row="19" Name="txtEngagment" Height="20" Width="150" DisplayMemberPath="engName"
                  ItemsSource="{Binding EngagmentList, UpdateSourceTrigger=PropertyChanged}"

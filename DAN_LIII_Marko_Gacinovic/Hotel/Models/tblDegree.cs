@@ -15,6 +15,6 @@ namespace Hotel.Models
     public partial class tblDegree
     {
         public int degreIS { get; set; }
-        public string name { get; set; }
+        public string DegreeName { get; set; }
     }
 }

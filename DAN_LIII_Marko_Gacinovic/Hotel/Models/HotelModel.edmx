@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Zadatak_49Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Zadatak_49Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblAll">
           <Key>
             <PropertyRef Name="All_ID" />
@@ -22,7 +22,7 @@
             <PropertyRef Name="degreIS" />
           </Key>
           <Property Name="degreIS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="5" />
+          <Property Name="DegreeName" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="tblEmploye">
           <Key>
@@ -53,7 +53,7 @@
           <Property Name="Experience" Type="int" />
           <Property Name="SSS" Type="nvarchar" MaxLength="3" />
         </EntityType>
-        <Association Name="FK__tblEmploy__AllID__24927208">
+        <Association Name="FK__tblEmploy__AllID__619B8048">
           <End Role="tblAll" Type="Self.tblAll" Multiplicity="0..1" />
           <End Role="tblEmploye" Type="Self.tblEmploye" Multiplicity="*" />
           <ReferentialConstraint>
@@ -65,7 +65,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblManage__AllID__239E4DCF">
+        <Association Name="FK__tblManage__AllID__60A75C0F">
           <End Role="tblAll" Type="Self.tblAll" Multiplicity="0..1" />
           <End Role="tblManagers" Type="Self.tblManagers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -83,17 +83,16 @@
           <EntitySet Name="tblEmploye" EntityType="Self.tblEmploye" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEngagment" EntityType="Self.tblEngagment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblManagers" EntityType="Self.tblManagers" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__tblEmploy__AllID__24927208" Association="Self.FK__tblEmploy__AllID__24927208">
+          <AssociationSet Name="FK__tblEmploy__AllID__619B8048" Association="Self.FK__tblEmploy__AllID__619B8048">
             <End Role="tblAll" EntitySet="tblAll" />
             <End Role="tblEmploye" EntitySet="tblEmploye" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblManage__AllID__239E4DCF" Association="Self.FK__tblManage__AllID__239E4DCF">
+          <AssociationSet Name="FK__tblManage__AllID__60A75C0F" Association="Self.FK__tblManage__AllID__60A75C0F">
             <End Role="tblAll" EntitySet="tblAll" />
             <End Role="tblManagers" EntitySet="tblManagers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Zadatak_49Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -116,7 +115,7 @@
             <PropertyRef Name="degreIS" />
           </Key>
           <Property Name="degreIS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="DegreeName" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblEmploye">
           <Key>
@@ -210,8 +209,8 @@
           <EntitySetMapping Name="tblDegrees">
             <EntityTypeMapping TypeName="Zadatak_49Model.tblDegree">
               <MappingFragment StoreEntitySet="tblDegree">
+                <ScalarProperty Name="DegreeName" ColumnName="DegreeName" />
                 <ScalarProperty Name="degreIS" ColumnName="degreIS" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

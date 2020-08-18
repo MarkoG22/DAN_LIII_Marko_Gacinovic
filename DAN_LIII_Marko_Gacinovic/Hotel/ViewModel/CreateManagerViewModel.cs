@@ -12,36 +12,15 @@ using System.Windows.Input;
 
 namespace Hotel.ViewModel
 {
-    class CreateEmployeeViewModel : ViewModelBase
+    class CreateManagerViewModel : ViewModelBase
     {
-        CreateEmployeeView employeeView;
+        CreateManagerView createManager;
 
         private tblAll user;
         public tblAll User
         {
             get { return user; }
             set { user = value; OnPropertyChanged("User"); }
-        }
-
-        private tblEmploye employee;
-        public tblEmploye Employee
-        {
-            get { return employee; }
-            set { employee = value; OnPropertyChanged("Employee"); }
-        }
-
-        private tblEngagment engagment;
-        public tblEngagment Engagment
-        {
-            get { return engagment; }
-            set { engagment = value; OnPropertyChanged("Engagment"); }
-        }
-
-        private List<tblEngagment> engagmentList;
-        public List<tblEngagment> EngagmentList
-        {
-            get { return engagmentList; }
-            set { engagmentList = value; OnPropertyChanged("EngagmentList"); }
         }
 
         private tblManager manager;
@@ -51,21 +30,26 @@ namespace Hotel.ViewModel
             set { manager = value; OnPropertyChanged("Manager"); }
         }
 
-        private List<tblManager> managerList;
-        public List<tblManager> ManagerList
+        private tblDegree degree;
+        public tblDegree Degree
         {
-            get { return managerList; }
-            set { managerList = value; OnPropertyChanged("ManagerList"); }
+            get { return degree; }
+            set { degree = value; OnPropertyChanged("Degree"); }
         }
 
-
-        public CreateEmployeeViewModel(CreateEmployeeView employeeOpen)
+        private List<tblDegree> degreeList;
+        public List<tblDegree> DegreeList
         {
-            employeeView = employeeOpen;
-            EngagmentList = GetAllEngagment();
-            ManagerList = GetAllManager();
+            get { return degreeList; }
+            set { degreeList = value; OnPropertyChanged("DegreeList"); }
+        }
+
+        public CreateManagerViewModel(CreateManagerView createManagerOpen)
+        {
+            createManager = createManagerOpen;
+            DegreeList = GetAllDegree();
             user = new tblAll();
-            employee = new tblEmploye();
+            manager = new tblManager();
         }
 
         // commands
@@ -85,8 +69,7 @@ namespace Hotel.ViewModel
         private bool CanSaveExecute()
         {
             if (String.IsNullOrEmpty(user.FirstName) || String.IsNullOrEmpty(user.Surname)
-                || String.IsNullOrEmpty(user.Email)  || String.IsNullOrEmpty(user.Username) || String.IsNullOrEmpty(user.Pasword)
-                || String.IsNullOrEmpty(employee.Gender) || String.IsNullOrEmpty(employee.Citizenship) 
+                || String.IsNullOrEmpty(user.Email) || String.IsNullOrEmpty(user.Username) || String.IsNullOrEmpty(user.Pasword)                
                 || !user.FirstName.All(Char.IsLetter) || !user.Surname.All(Char.IsLetter))
             {
                 return false;
@@ -104,7 +87,7 @@ namespace Hotel.ViewModel
                 using (Zadatak_49Entities context = new Zadatak_49Entities())
                 {
                     tblAll newUser = new tblAll();
-                    tblEmploye newEmployee = new tblEmploye();
+                    tblManager newManager = new tblManager();
 
                     // inputs and validations
                     if (user.FirstName.All(Char.IsLetter))
@@ -141,34 +124,21 @@ namespace Hotel.ViewModel
 
                     user.All_ID = newUser.All_ID;
 
-                    newEmployee.EmployeFlor = manager.ManagerFlor;                    
-
-                    string sex = employee.Gender.ToUpper();
-
-                    // gender validation
-                    if ((sex == "M" || sex == "Z" || sex == "X" || sex == "N"))
-                    {
-                        newEmployee.Gender = sex;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Wrong Gender input, please enter M, Z, X or N.");
-                    }
-
-                    newEmployee.Citizenship = employee.Citizenship;
-                    newEmployee.Engagment = engagment.engName;
-                    newEmployee.EmployeID = employee.EmployeID;
-                    newEmployee.AllIDemp = user.All_ID;
+                    newManager.ManagerFlor = manager.ManagerFlor;
+                    newManager.Experience = manager.Experience;
+                    newManager.SSS = degree.DegreeName;
+                    newManager.ManagerID = manager.ManagerID;
+                    newManager.AllIDman = user.All_ID;
 
                     context.tblAlls.Add(newUser);
-                    context.tblEmployes.Add(newEmployee);
-                    context.SaveChanges();                    
+                    context.tblManagers.Add(newManager);
+                    context.SaveChanges();
                 }
-                employeeView.Close();
+                createManager.Close();
             }
             catch (Exception)
             {
-                MessageBox.Show("Wrong inputs, please check your inputs or try again. \nIf there are no floors, please create manager first.");
+                MessageBox.Show("Wrong inputs, please check your inputs or try again.");
             }
         }
 
@@ -193,7 +163,7 @@ namespace Hotel.ViewModel
         {
             try
             {
-                employeeView.Close();
+                createManager.Close();
             }
             catch (Exception ex)
             {
@@ -206,32 +176,14 @@ namespace Hotel.ViewModel
             return true;
         }
 
-        private List<tblEngagment> GetAllEngagment()
+        private List<tblDegree> GetAllDegree()
         {
             try
             {
                 using (Zadatak_49Entities context = new Zadatak_49Entities())
                 {
-                    List<tblEngagment> list = new List<tblEngagment>();
-                    list = (from x in context.tblEngagments select x).ToList();
-                    return list;
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
-                return null;
-            }
-        }
-
-        private List<tblManager> GetAllManager()
-        {
-            try
-            {
-                using (Zadatak_49Entities context = new Zadatak_49Entities())
-                {
-                    List<tblManager> list = new List<tblManager>();
-                    list = (from x in context.tblManagers select x).ToList();
+                    List<tblDegree> list = new List<tblDegree>();
+                    list = (from x in context.tblDegrees select x).ToList();
                     return list;
                 }
             }
@@ -262,6 +214,5 @@ namespace Hotel.ViewModel
                 return false;
             }
         }
-
     }
 }
