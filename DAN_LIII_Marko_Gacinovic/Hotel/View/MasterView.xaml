@@ -1,0 +1,15 @@
+﻿<Window x:Class="Hotel.View.MasterView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hotel.View"
+        mc:Ignorable="d"
+        Title="MasterView" Height="200" Width="300">
+    <Grid>
+        <Button Content="Create Manager" Command="{Binding CreateManager, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="88,68,0,0" VerticalAlignment="Top" Width="110" Height="25"/>        
+        <Label Content="Please choose an option to create:" HorizontalAlignment="Left" Margin="24,22,0,0" VerticalAlignment="Top" Width="202"/>
+        <Button Content="Create Employee" Command="{Binding CreateEmployee, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="88,117,0,0" VerticalAlignment="Top" Width="110" Height="25"/>
+
+    </Grid>
+</Window>
