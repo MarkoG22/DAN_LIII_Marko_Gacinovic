@@ -146,13 +146,13 @@ namespace Hotel.ViewModel
                     string sex = employee.Gender.ToUpper();
 
                     // gender validation
-                    if ((sex == "M" || sex == "Z" || sex == "X" || sex == "N"))
+                    if ((sex == "M" || sex == "Z"))
                     {
                         newEmployee.Gender = sex;
                     }
                     else
                     {
-                        MessageBox.Show("Wrong Gender input, please enter M, Z, X or N.");
+                        MessageBox.Show("Wrong Gender input, please enter M or Z.");
                     }
 
                     newEmployee.Citizenship = employee.Citizenship;

@@ -52,7 +52,7 @@
         <Label Grid.Column="1" Grid.Row="9" Name="lblUsername" Content="Username: " Padding="0" HorizontalAlignment="Right"/>
         <Label Grid.Column="1" Grid.Row="11" Name="lblPassword" Content="Password: " Padding="0" HorizontalAlignment="Right"/>
         <Label Grid.Column="1" Grid.Row="13" Name="lblEmployeFlor" Content="Floor: " Padding="0" HorizontalAlignment="Right"/>
-        <Label Grid.Column="1" Grid.Row="15" Name="lblGender" Content="Gender (M/Z/X/N): " Padding="0" HorizontalAlignment="Right"/>        
+        <Label Grid.Column="1" Grid.Row="15" Name="lblGender" Content="Gender (M/Z): " Padding="0" HorizontalAlignment="Right"/>        
         <Label Grid.Column="1" Grid.Row="17" Name="lblCitizenship" Content="Citizenship: " Padding="0" HorizontalAlignment="Right"/>
         <Label Grid.Column="1" Grid.Row="19" Name="lblEngagment" Content="Engagment: " Padding="0" HorizontalAlignment="Right"/>
         <TextBox Grid.Column="3" Grid.Row="1" Name="txtFirstName" Height="20" Width="150" PreviewTextInput="LettersValidationTextBox"

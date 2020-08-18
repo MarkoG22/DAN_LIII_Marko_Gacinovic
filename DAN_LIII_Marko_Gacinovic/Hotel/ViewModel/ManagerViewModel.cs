@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Hotel.ViewModel
@@ -40,8 +41,9 @@ namespace Hotel.ViewModel
         {
             get { return employeeList; }
             set { employeeList = value; OnPropertyChanged("EmployeeList"); }
-        }
+        }      
 
+        
         public ManagerViewModel(ManagerView managerViewOpen, tblManager ManagerToPass)
         {
             manager = ManagerToPass;
@@ -71,13 +73,55 @@ namespace Hotel.ViewModel
         private void CalculateSalaryExecute()
         {
             try
-            {
-                CalculateSalaryView salary = new CalculateSalaryView(employee);
-                salary.ShowDialog();
+            {       
+                using (Zadatak_49Entities context = new Zadatak_49Entities())
+                {
+                    tblEmploye employee = (from y in context.tblEmployes where y.EmployeFlor == manager.ManagerFlor select y).First();
+
+                    string degree = manager.SSS;
+                    double num = 0;
+
+                    switch (degree)
+                    {
+                        case "I": num = 1; break;
+                        case "II": num = 2; break;
+                        case "III": num = 3; break;
+                        case "IV": num = 4; break;
+                        case "V": num = 5; break;
+                        case "VI": num = 6; break;
+                        case "VII": num = 7; break;
+                        default:
+                            break;
+                    }
+
+                    double i = 0.75 * (double)manager.Experience;
+                    double s = 0.15 * num;
+                    double p;
+
+                    if (employee.Gender == "M")
+                    {
+                        p = 0.12;
+                    }
+                    else
+                    {
+                        p = 0.15;
+                    }
+
+                    Random rnd = new Random();
+                    int x = rnd.Next(2, 1000);
+
+                    double salary = 1000 * i * s * p + x;
+
+                    employee.Salary = (int)salary;
+
+                    context.SaveChanges();
+
+                    EmployeeList = GetAllEmployee();
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                MessageBox.Show("Sorry, the salary can not be calculated.");
             }
         }
 
