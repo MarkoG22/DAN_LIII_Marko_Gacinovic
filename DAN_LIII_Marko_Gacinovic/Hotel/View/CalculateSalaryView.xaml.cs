@@ -17,14 +17,14 @@ using System.Windows.Shapes;
 namespace Hotel.View
 {
     /// <summary>
-    /// Interaction logic for ManagerView.xaml
+    /// Interaction logic for CalculateSalaryView.xaml
     /// </summary>
-    public partial class ManagerView : Window
+    public partial class CalculateSalaryView : Window
     {
-        public ManagerView(tblManager manager)
+        public CalculateSalaryView(tblEmploye employee)
         {
             InitializeComponent();
-            this.DataContext = new ManagerViewModel(this, manager);
+            this.DataContext = new CalculateSalaryViewModel(this, employee);
         }
     }
 }

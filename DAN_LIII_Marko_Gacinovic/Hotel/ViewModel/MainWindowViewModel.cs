@@ -39,6 +39,14 @@ namespace Hotel.ViewModel
             }
         }
 
+        private tblManager manager;
+        public tblManager Manager
+        {
+            get { return manager; }
+            set { manager = value; }
+        }
+
+
         // constructor
         public MainWindowViewModel(MainWindow mainOpen)
         {
@@ -78,8 +86,23 @@ namespace Hotel.ViewModel
             }
             else if (IsManager(username, UserPassword))
             {
-                ManagerView manager = new ManagerView();
-                manager.ShowDialog();
+                try
+                {
+                    using (Zadatak_49Entities context = new Zadatak_49Entities())
+                    {
+                        tblAll user = (from y in context.tblAlls where y.Username == username && y.Pasword == userPassword select y).First();
+                        manager = (from x in context.tblManagers where x.AllIDman == user.All_ID select x).First();
+
+                        ManagerView managerView = new ManagerView(manager);
+                        managerView.ShowDialog();
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                
             }
             else
             {
